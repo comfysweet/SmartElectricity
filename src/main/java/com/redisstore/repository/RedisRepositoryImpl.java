@@ -29,14 +29,14 @@ public class RedisRepositoryImpl implements RedisRepository {
     }
 
     public void add(final Record record) {
-        hashOperations.put(KEY, record.getId(), record.getName());
+        hashOperations.put(KEY, record.getId(), record);
     }
 
     public void delete(final String id) {
         hashOperations.delete(KEY, id);
     }
 
-    public Record findMovie(final String id) {
+    public Record findRecord(final String id) {
         return (Record) hashOperations.get(KEY, id);
     }
 
@@ -46,8 +46,7 @@ public class RedisRepositoryImpl implements RedisRepository {
         }
     }
 
-    public Map<Object, Object> findAllMovies() {
+    public Map<Object, Object> findAllRecords() {
         return hashOperations.entries(KEY);
     }
-
 }

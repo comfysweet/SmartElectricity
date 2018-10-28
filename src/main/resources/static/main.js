@@ -52,7 +52,7 @@ function row(key, value) {
         tr(
             td(key) +
             td(value) +
-            td(editButton(key)) +
+//            td(editButton(key)) +
             td(deleteButton(key))));
 }
 

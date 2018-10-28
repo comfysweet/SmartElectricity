@@ -10,7 +10,7 @@ public interface RedisRepository {
     /**
      * Return all movies
      */
-    Map<Object, Object> findAllMovies();
+    Map<Object, Object> findAllRecords();
 
     /**
      * Add key-value pair to Redis.
@@ -25,7 +25,7 @@ public interface RedisRepository {
     /**
      * find a movie
      */
-    Record findMovie(String id);
+    Record findRecord(String id);
 
     /**
      * Add key-value pairs to Redis.

@@ -27,7 +27,7 @@ public class WebController {
 
     @GetMapping(value = "/add")
     public @ResponseBody
-    ResponseEntity<String> getRecords(){
+    ResponseEntity<String> getRecords() {
         redisRepository.add(recordService.getRecords());
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -40,14 +40,14 @@ public class WebController {
     @RequestMapping("/keys")
     public @ResponseBody
     Map<Object, Object> keys() {
-        return redisRepository.findAllMovies();
+        return redisRepository.findAllRecords();
     }
 
     @RequestMapping("/values")
     public @ResponseBody
     Map<String, String> findAll() {
-        Map<Object, Object> aa = redisRepository.findAllMovies();
-        Map<String, String> map = new HashMap<String, String>();
+        Map<Object, Object> aa = redisRepository.findAllRecords();
+        Map<String, String> map = new HashMap<>();
         for (Map.Entry<Object, Object> entry : aa.entrySet()) {
             String key = (String) entry.getKey();
             map.put(key, aa.get(key).toString());
@@ -58,9 +58,14 @@ public class WebController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<String> add(
             @RequestParam String key,
-            @RequestParam String value) {
+            @RequestParam String year,
+            @RequestParam String month,
+            @RequestParam String kindCounter,
+            @RequestParam String lastValue,
+            @RequestParam String currentValue
+    ) {
 
-        Record record = new Record(key, value);
+        Record record = new Record(key, year, month, kindCounter, lastValue, currentValue);
 
         redisRepository.add(record);
         return new ResponseEntity<>(HttpStatus.OK);
