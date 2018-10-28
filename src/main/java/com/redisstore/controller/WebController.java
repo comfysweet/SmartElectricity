@@ -3,12 +3,12 @@ package com.redisstore.controller;
 import com.redisstore.domain.Record;
 import com.redisstore.domain.RecordService;
 import com.redisstore.repository.RedisRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,14 +18,15 @@ public class WebController {
 
     private RecordService recordService;
 
-    @Autowired
+
     private RedisRepository redisRepository;
 
-    public WebController(RecordService recordService) {
+    public WebController(RecordService recordService, RedisRepository redisRepository) {
         this.recordService = recordService;
+        this.redisRepository = redisRepository;
     }
 
-    @GetMapping(value = "/add")
+    @PostMapping(value = "/mockRecords")
     public @ResponseBody
     ResponseEntity<String> getRecords() {
         redisRepository.add(recordService.getRecords());
@@ -57,21 +58,19 @@ public class WebController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<String> add(
-            @RequestParam String key,
-            @RequestParam String year,
-            @RequestParam String month,
+            @RequestParam String paymentPeriod,
             @RequestParam String kindCounter,
-            @RequestParam String lastValue,
-            @RequestParam String currentValue
+            @RequestParam ArrayList<String> lastValue,
+            @RequestParam ArrayList<String> currentValue
     ) {
 
-        Record record = new Record(key, year, month, kindCounter, lastValue, currentValue);
+        Record record = new Record(paymentPeriod, kindCounter, lastValue, currentValue);
 
         redisRepository.add(record);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @DeleteMapping
     public ResponseEntity<String> delete(@RequestParam String key) {
         redisRepository.delete(key);
         return new ResponseEntity<>(HttpStatus.OK);

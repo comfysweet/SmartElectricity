@@ -29,15 +29,20 @@ public class RedisRepositoryImpl implements RedisRepository {
     }
 
     public void add(final Record record) {
-        hashOperations.put(KEY, record.getId(), record);
+        hashOperations.put(KEY, record.getPaymentPeriod(), record);
     }
 
-    public void delete(final String id) {
-        hashOperations.delete(KEY, id);
+    public void delete(final String paymentPeriod) {
+        hashOperations.delete(KEY, paymentPeriod);
     }
 
-    public Record findRecord(final String id) {
-        return (Record) hashOperations.get(KEY, id);
+    @Override
+    public void deleteAll() {
+        hashOperations.delete(KEY);
+    }
+
+    public Record findRecord(final String paymentPeriod) {
+        return (Record) hashOperations.get(KEY, paymentPeriod);
     }
 
     public void add(final ArrayList<Record> records) {

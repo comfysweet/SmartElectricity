@@ -8,7 +8,7 @@ import java.util.Map;
 public interface RedisRepository {
 
     /**
-     * Return all movies
+     * Return all records
      */
     Map<Object, Object> findAllRecords();
 
@@ -23,7 +23,12 @@ public interface RedisRepository {
     void delete(String id);
 
     /**
-     * find a movie
+     * Delete a key-value pair in Redis.
+     */
+    void deleteAll();
+
+    /**
+     * find a record
      */
     Record findRecord(String id);
 
