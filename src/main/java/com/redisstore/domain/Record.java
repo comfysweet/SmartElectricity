@@ -1,16 +1,13 @@
-package com.redisstore.model;
+package com.redisstore.domain;
 
 import java.io.Serializable;
 
-public class Movie implements Serializable {
+public class Record implements Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private String id;
     private String name;
-    public Movie(String id, String name){
+    public Record(String id, String name){
         this.id=id;
         this.name=name;
 
@@ -30,7 +27,7 @@ public class Movie implements Serializable {
 
     @Override
     public String toString(){
-        return "Movie{" + "id=" +id + '\''  + ", name =" + name + "}";
+        return "Record{" + "id=" +id + '\''  + ", name =" + name + "}";
     }
 
 }

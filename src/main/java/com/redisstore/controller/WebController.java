@@ -1,27 +1,38 @@
 package com.redisstore.controller;
 
-import com.redisstore.model.Movie;
+import com.redisstore.domain.Record;
+import com.redisstore.domain.RecordService;
 import com.redisstore.repository.RedisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/redis")
 public class WebController {
+
+    private RecordService recordService;
 
     @Autowired
     private RedisRepository redisRepository;
 
-    @RequestMapping("/")
+    public WebController(RecordService recordService) {
+        this.recordService = recordService;
+    }
+
+    @GetMapping(value = "/add")
+    public @ResponseBody
+    ResponseEntity<String> getRecords(){
+        redisRepository.add(recordService.getRecords());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping
     public String index() {
         return "index";
     }
@@ -49,9 +60,9 @@ public class WebController {
             @RequestParam String key,
             @RequestParam String value) {
 
-        Movie movie = new Movie(key, value);
+        Record record = new Record(key, value);
 
-        redisRepository.add(movie);
+        redisRepository.add(record);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

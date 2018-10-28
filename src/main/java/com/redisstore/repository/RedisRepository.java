@@ -1,7 +1,8 @@
 package com.redisstore.repository;
 
-import com.redisstore.model.Movie;
+import com.redisstore.domain.Record;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public interface RedisRepository {
@@ -14,7 +15,7 @@ public interface RedisRepository {
     /**
      * Add key-value pair to Redis.
      */
-    void add(Movie movie);
+    void add(Record record);
 
     /**
      * Delete a key-value pair in Redis.
@@ -24,6 +25,10 @@ public interface RedisRepository {
     /**
      * find a movie
      */
-    Movie findMovie(String id);
+    Record findMovie(String id);
 
+    /**
+     * Add key-value pairs to Redis.
+     */
+    void add(ArrayList<Record> records);
 }
