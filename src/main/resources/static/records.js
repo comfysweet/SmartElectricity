@@ -101,15 +101,28 @@ function deleteKey(key) {
      * Reload keys and values in table to reflect the deleted ones.
      * Set keyboard focus to key input: ready to start typing.
      */
-    $.post('/redis/delete', {key: key}, function() {
-        refreshTable();
-        $('#keyInput').focus();
-    });
+    $ .ajax({
+         url: '/redis/' + key,
+         type: 'DELETE',
+         success: function() {
+                          refreshTable();
+                          $('#keyInput').focus();
+                      },
+         contentType: "application/json"
+       });
+
+}
+
+
+function createMock() {
+$.post('redis/mockRecords', function() { refreshTable(); });
 }
 
 $(document).ready(function() {
     var keyInput = $('#keyInput'),
         valueInput = $('#valueInput');
+
+    $('#addMocks').click(function () {createMock();});
 
     refreshTable();
     $('#addForm').on('submit', function(event) {
@@ -123,7 +136,7 @@ $(document).ready(function() {
          * Clear the inputs.
          * Set keyboard focus to key input: ready to start typing.
          */
-        $.post('/redis/add', data, function() {
+        $.post('/redis', data, function() {
             refreshTable();
             keyInput.val('');
             valueInput.val('');
