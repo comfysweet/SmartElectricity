@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @Repository
-public class RedisRepositoryImpl implements RedisRepository {
+public class RecordRedisRepositoryImpl implements RecordRedisRepository {
     private static final String KEY = "Record";
 
     private RedisTemplate<String, Object> redisTemplate;
     private HashOperations hashOperations;
 
     @Autowired
-    public RedisRepositoryImpl(RedisTemplate<String, Object> redisTemplate) {
+    public RecordRedisRepositoryImpl(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 

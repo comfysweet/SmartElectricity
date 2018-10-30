@@ -1,21 +1,21 @@
-package com.redisstore.repository;
+package com.diagram.repository;
 
-import com.redisstore.domain.Record;
+import com.diagram.domain.Point;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-public interface RedisRepository {
+public interface DiagramRedisRepository {
 
     /**
      * Return all records
      */
-    Map<Object, Object> findAllRecords();
+    Map<Object, Object> findAllPoints();
 
     /**
      * Add key-value pair to Redis.
      */
-    void add(Record record);
+    void add(Point point);
 
     /**
      * Delete a key-value pair in Redis.
@@ -30,10 +30,10 @@ public interface RedisRepository {
     /**
      * find a record
      */
-    Record findRecord(String id);
+    Point findPoint(String id);
 
     /**
      * Add key-value pairs to Redis.
      */
-    void add(ArrayList<Record> records);
+    void add(ArrayList<Point> points);
 }

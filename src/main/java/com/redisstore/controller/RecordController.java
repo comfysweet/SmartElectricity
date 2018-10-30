@@ -2,7 +2,7 @@ package com.redisstore.controller;
 
 import com.redisstore.domain.Record;
 import com.redisstore.domain.RecordService;
-import com.redisstore.repository.RedisRepository;
+import com.redisstore.repository.RecordRedisRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,40 +14,40 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/redis")
-public class WebController {
+public class RecordController {
 
     private RecordService recordService;
 
 
-    private RedisRepository redisRepository;
+    private RecordRedisRepository recordRedisRepository;
 
-    public WebController(RecordService recordService, RedisRepository redisRepository) {
+    public RecordController(RecordService recordService, RecordRedisRepository recordRedisRepository) {
         this.recordService = recordService;
-        this.redisRepository = redisRepository;
+        this.recordRedisRepository = recordRedisRepository;
     }
 
     @PostMapping(value = "/mockRecords")
     public @ResponseBody
     ResponseEntity<String> getRecords() {
-        redisRepository.add(recordService.getRecords());
+        recordRedisRepository.add(recordService.getRecords());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping
-    public String index() {
-        return "index";
+    public String Record() {
+        return "Record";
     }
 
     @RequestMapping("/keys")
     public @ResponseBody
     Map<Object, Object> keys() {
-        return redisRepository.findAllRecords();
+        return recordRedisRepository.findAllRecords();
     }
 
     @RequestMapping("/values")
     public @ResponseBody
     Map<String, String> findAll() {
-        Map<Object, Object> aa = redisRepository.findAllRecords();
+        Map<Object, Object> aa = recordRedisRepository.findAllRecords();
         Map<String, String> map = new HashMap<>();
         for (Map.Entry<Object, Object> entry : aa.entrySet()) {
             String key = (String) entry.getKey();
@@ -56,7 +56,7 @@ public class WebController {
         return map;
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<String> add(
             @RequestParam String paymentPeriod,
             @RequestParam String kindCounter,
@@ -66,13 +66,13 @@ public class WebController {
 
         Record record = new Record(paymentPeriod, kindCounter, lastValue, currentValue);
 
-        redisRepository.add(record);
+        recordRedisRepository.add(record);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> delete(@RequestParam String key) {
-        redisRepository.delete(key);
+    @DeleteMapping("/{key}")
+    public ResponseEntity<String> delete(@PathVariable("key") String key) {
+        recordRedisRepository.delete(key);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

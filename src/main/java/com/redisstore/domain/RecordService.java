@@ -1,7 +1,6 @@
 package com.redisstore.domain;
 
-import com.redisstore.repository.RedisRepositoryImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.redisstore.repository.RecordRedisRepositoryImpl;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,9 +10,9 @@ public class RecordService {
 
     private ArrayList<Record> records;
 
-    public RedisRepositoryImpl redisRepository;
+    public RecordRedisRepositoryImpl redisRepository;
 
-    public RecordService(RedisRepositoryImpl redisRepository) {
+    public RecordService(RecordRedisRepositoryImpl redisRepository) {
         this.redisRepository = redisRepository;
         createMock();
     }
@@ -44,7 +43,7 @@ public class RecordService {
 
         records.add(new Record("01.2018", "1", arrayList1, arrayList2));
         records.add(new Record("02.2018", "2", arrayList3, arrayList4));
-        records.add(new Record("03.2018", "3", arrayList5, arrayList6));
+        records.add(new Record("04.2018", "3", arrayList5, arrayList6));
 
 //        records.add(new Record("01.2018", "1", "11", "22"));
 //        records.add(new Record("02.2018", "2", "33", "44"));
