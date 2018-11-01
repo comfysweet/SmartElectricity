@@ -59,4 +59,8 @@ public class PaymentService {
 
         return paymentInformation;
     }
+
+    public PaymentResult getMockPaymentResult () {
+        return new PaymentResult("Операция успешно выполнена");
+    }
 }
