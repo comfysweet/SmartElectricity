@@ -1,5 +1,6 @@
 package com.diagram.controller;
 
+import com.diagram.domain.DiagramEntry;
 import com.diagram.domain.DiagramService;
 import com.diagram.domain.Point;
 import com.diagram.repository.DiagramRedisRepository;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,5 +71,12 @@ public class DiagramController {
     public ResponseEntity<String> delete(@PathVariable("key") String key) {
         diagramRedisRepository.delete(key);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/pointsForDay")
+    public @ResponseBody
+    ArrayList<DiagramEntry> getPointsForDay() {
+        ArrayList<DiagramEntry> resultPoints = diagramService.getPointsForDay();
+        return resultPoints;
     }
 }

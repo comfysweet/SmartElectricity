@@ -2,24 +2,18 @@ package com.devices.domain;
 
 public class Device {
 
-    private Integer id;
+    private String id;
     private String name;
     private Double averagePower;
     private String state;
+    private String payment;
 
-    public Device(Integer id, String name, Double averagePower, String state) {
+    public Device(String id, String name, Double averagePower, String state, String payment) {
         this.id = id;
         this.name = name;
         this.averagePower = averagePower;
         this.state = state;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+        this.payment = payment;
     }
 
     public String getName() {
@@ -44,5 +38,21 @@ public class Device {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
