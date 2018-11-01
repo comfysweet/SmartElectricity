@@ -2,6 +2,7 @@ package com.openHab.domain;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 
 public class OpenHab implements Serializable {
 
@@ -12,9 +13,9 @@ public class OpenHab implements Serializable {
     private String nameOfDevice;
     private String state;
     private String valueOfPower;
-    private SimpleDateFormat dateTime;
+    private LocalDateTime dateTime;
 
-    public OpenHab(String id, String nameOfDevice, String state, String valueOfPower, SimpleDateFormat dateTime) {
+    public OpenHab(String id, String nameOfDevice, String state, String valueOfPower, LocalDateTime dateTime) {
         this.id = id;
         this.nameOfDevice = nameOfDevice;
         this.state = state;
@@ -46,11 +47,11 @@ public class OpenHab implements Serializable {
         this.valueOfPower = valueOfPower;
     }
 
-    public SimpleDateFormat getDateTime() {
+    public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(SimpleDateFormat dateTime) {
+    public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
 

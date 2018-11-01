@@ -41,7 +41,7 @@ public class RecordService {
         arrayList6.add("1360");
         arrayList6.add("1115");
 
-        records.add(new Record("01.2018", "1", arrayList1, arrayList2));
+        records.add(new Record("11.2018", "1", arrayList1, arrayList2));
         records.add(new Record("02.2018", "2", arrayList3, arrayList4));
         records.add(new Record("04.2018", "3", arrayList5, arrayList6));
 

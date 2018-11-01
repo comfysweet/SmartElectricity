@@ -1,21 +1,28 @@
 package com.diagram.domain;
 
 import com.diagram.repository.DiagramRedisRepositoryImpl;
+import com.openHab.domain.OpenHABService;
+import com.openHab.domain.OpenHab;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 public class DiagramService {
 
+    private OpenHABService openHABService;
+
     private ArrayList<Point> points;
 
     public DiagramRedisRepositoryImpl diagramRepository;
 
-    public DiagramService(DiagramRedisRepositoryImpl diagramRepository) {
+    public DiagramService(DiagramRedisRepositoryImpl diagramRepository, OpenHABService openHABService) {
         this.diagramRepository = diagramRepository;
+        this.openHABService = openHABService;
         createMock();
     }
 
@@ -50,14 +57,33 @@ public class DiagramService {
         hours.add("20-22");
         hours.add("22-24");
 
+//        ArrayList<OpenHab> openHabs = openHABService.getOpenHabs();
+//
+//        for(OpenHab openHab: openHabs){
+//            Date dateFormat=  openHab.getDateTime().get2DigitYearStart();
+//            System.out.println(dateFormat.toString());
+//        }
+        Integer valueOfHours = 0;
         ArrayList<DiagramEntry> diagramEntries = new ArrayList<>();
-       for (String hour:hours) {
-           String row ="";
-           for (int i = 0; i<24;i++) {
-              row = row + "#"  + String.valueOf(ThreadLocalRandom.current().nextDouble(0.0, 3.5));
-           }
-           row = row.substring(1);
-           diagramEntries.add(new DiagramEntry(hour,row));
+        for (String hour : hours) {
+
+            String row = "";
+            for (int i = 0; i < 24; i++) {
+                Double initValue = 0.0;
+                if (valueOfHours < 1) {
+                    row = row + "#" + String.valueOf(initValue);
+                }
+                if (valueOfHours >= 1 && valueOfHours <= 6) {
+                    row = row + "#" + String.valueOf(ThreadLocalRandom.current().nextDouble(3.0, 3.5));
+                }
+                if (valueOfHours > 6) {
+                    row = row + "#" + String.valueOf(ThreadLocalRandom.current().nextDouble(0.0, 3.5));
+                }
+                //row = row + "#"  + String.valueOf(ThreadLocalRandom.current().nextDouble(0.0, 3.5));
+            }
+            row = row.substring(1);
+            diagramEntries.add(new DiagramEntry(hour, row));
+            valueOfHours++;
         }
         return diagramEntries;
 
