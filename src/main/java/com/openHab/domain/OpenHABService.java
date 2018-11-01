@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Component
-public class OpenHabService {
+public class OpenHABService {
 
     private ArrayList<OpenHab> openHabs;
 
-    public OpenHabService() {
+    public OpenHABService() {
         openHabs = new ArrayList<>();
         ArrayList<String> state = new ArrayList<>();
         state.add("вкл");

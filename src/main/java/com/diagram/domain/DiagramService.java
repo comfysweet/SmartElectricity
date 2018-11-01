@@ -34,7 +34,7 @@ public class DiagramService {
     }
 
 
-    public LinkedHashMap<String, LinkedHashMap> getPointsForDay() {
+    public ArrayList<DiagramEntry> getPointsForDay() {
 
         ArrayList<String> hours = new ArrayList<>();
         hours.add("00-02");
@@ -50,6 +50,18 @@ public class DiagramService {
         hours.add("20-22");
         hours.add("22-24");
 
+        ArrayList<DiagramEntry> diagramEntries = new ArrayList<>();
+       for (String hour:hours) {
+           String row ="";
+           for (int i = 0; i<24;i++) {
+              row = row + "#"  + String.valueOf(ThreadLocalRandom.current().nextDouble(0.0, 3.5));
+           }
+           row = row.substring(1);
+           diagramEntries.add(new DiagramEntry(hour,row));
+        }
+        return diagramEntries;
+
+/*
         LinkedHashMap<String, LinkedHashMap> resultOfPoints = new LinkedHashMap<>();
 
         int sizeOfPoints = points.size();
@@ -74,7 +86,7 @@ public class DiagramService {
             sizeBegin = sizeBegin + 24;
         }
 
-        return resultOfPoints;
+        return resultOfPoints;*/
     }
 
     public Point getPoint(String id) {
