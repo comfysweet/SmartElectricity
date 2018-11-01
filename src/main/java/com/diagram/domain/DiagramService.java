@@ -4,6 +4,7 @@ import com.diagram.repository.DiagramRedisRepositoryImpl;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Component
@@ -20,16 +21,60 @@ public class DiagramService {
 
     private void createMock() {
         points = new ArrayList<>();
-        Integer counter = 1;
+        Double counter;
 
-        for (Integer i = 1; i < 21; i++) {
+        for (Integer i = 1; i < 289; i++) {
+            counter = ThreadLocalRandom.current().nextDouble(0.0, 3.5);
             points.add(new Point(i.toString(), counter.toString()));
-            counter = counter + ThreadLocalRandom.current().nextInt(0, 50);
         }
     }
 
     public ArrayList<Point> getPoints() {
         return points;
+    }
+
+
+    public LinkedHashMap<String, LinkedHashMap> getPointsForDay() {
+
+        ArrayList<String> hours = new ArrayList<>();
+        hours.add("00-02");
+        hours.add("02-04");
+        hours.add("04-06");
+        hours.add("06-08");
+        hours.add("08-10");
+        hours.add("10-12");
+        hours.add("12-14");
+        hours.add("14-16");
+        hours.add("16-18");
+        hours.add("18-20");
+        hours.add("20-22");
+        hours.add("22-24");
+
+        LinkedHashMap<String, LinkedHashMap> resultOfPoints = new LinkedHashMap<>();
+
+        int sizeOfPoints = points.size();
+        int sizeBegin = sizeOfPoints - 288;
+
+        for (int i = 0; i < 12; i++) {
+            Double averageValue = 0.0;
+            ArrayList<String> pointsForHours = new ArrayList<>();
+            for (int j = sizeBegin; j < sizeBegin + 24; j++) {
+                double roundOff = Math.round(Double.valueOf(points.get(j).getValue()) * 100) / 100;
+                pointsForHours.add(String.valueOf(roundOff));
+                averageValue = averageValue + Double.valueOf(points.get(j).getValue());
+            }
+
+            averageValue = (double) Math.round(averageValue / 24);
+            LinkedHashMap map = new LinkedHashMap();
+
+            map.put(pointsForHours, averageValue);
+
+            resultOfPoints.put(hours.get(i), map);
+
+            sizeBegin = sizeBegin + 24;
+        }
+
+        return resultOfPoints;
     }
 
     public Point getPoint(String id) {

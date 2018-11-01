@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Controller
@@ -69,5 +70,12 @@ public class DiagramController {
     public ResponseEntity<String> delete(@PathVariable("key") String key) {
         diagramRedisRepository.delete(key);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/pointsForDay")
+    public @ResponseBody
+    LinkedHashMap<String, LinkedHashMap> getPointsForDay() {
+        LinkedHashMap<String, LinkedHashMap> resultPoints = diagramService.getPointsForDay();
+        return resultPoints;
     }
 }

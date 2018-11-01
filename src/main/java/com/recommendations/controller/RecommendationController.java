@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+
 @Controller
 @RequestMapping("/recommendation")
 public class RecommendationController {
@@ -18,7 +20,8 @@ public class RecommendationController {
     }
 
     @GetMapping
-    public @ResponseBody Recommendation getRecommendation(){
+    public @ResponseBody
+    ArrayList<Recommendation> getRecommendation(){
         return recommendationService.getRecommendation();
     }
 

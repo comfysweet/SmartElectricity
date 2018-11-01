@@ -7,6 +7,7 @@ public class Device {
     private Double averagePower;
     private String state;
 
+
     public Device(Integer id, String name, Double averagePower, String state) {
         this.id = id;
         this.name = name;
