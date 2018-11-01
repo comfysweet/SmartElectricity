@@ -1,11 +1,7 @@
 package com.openHab.domain;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.io.Serializable;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class OpenHab implements Serializable {
 
@@ -18,16 +14,12 @@ public class OpenHab implements Serializable {
     private String valueOfPower;
     private SimpleDateFormat dateTime;
 
-  //  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-
-    public OpenHab(String nameOfDevice, String state, String valueOfPower, SimpleDateFormat dateTime) {
+    public OpenHab(String id, String nameOfDevice, String state, String valueOfPower, SimpleDateFormat dateTime) {
+        this.id = id;
         this.nameOfDevice = nameOfDevice;
         this.state = state;
         this.valueOfPower = valueOfPower;
         this.dateTime = dateTime;
-    }
-
-    public OpenHab() {
     }
 
     public String getNameOfDevice() {
@@ -60,5 +52,13 @@ public class OpenHab implements Serializable {
 
     public void setDateTime(SimpleDateFormat dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
