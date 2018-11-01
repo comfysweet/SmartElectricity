@@ -1,8 +1,7 @@
 package com.devices.domain;
 
-import com.openHab.domain.OpenHabService;
+import com.openHab.domain.OpenHABService;
 import com.openHab.domain.OpenHab;
-import com.redisstore.domain.RecordService;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,17 +9,17 @@ import java.util.ArrayList;
 @Component
 public class DeviceService {
 
-    private OpenHabService openHabService;
+    private OpenHABService openHABService;
 
-    public DeviceService(OpenHabService openHabService) {
-        this.openHabService = openHabService;
+    public DeviceService(OpenHABService openHABService) {
+        this.openHABService = openHABService;
         createMock();
     }
 
     private ArrayList<Device> devices;
 
     public void createMock() {
-        ArrayList<OpenHab> openHabs = openHabService.getOpenHabs();
+        ArrayList<OpenHab> openHabs = openHABService.getOpenHabs();
 
         devices = new ArrayList<>();
 
